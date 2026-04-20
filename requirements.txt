@@ -1,0 +1,9 @@
+playwright
+pytest
+pytest-bdd
+pytest-xdist
+allure-pytest
+requests
+faker
+PyYAML
+
