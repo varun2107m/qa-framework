@@ -6,4 +6,4 @@ allure-pytest
 requests
 faker
 PyYAML
-
+python-dotenv
