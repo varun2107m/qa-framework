@@ -1,52 +1,66 @@
 import requests
+import logging
 
 
 class APIClient:
-    def __init__(self, base_url, timeout=10):
-        self.base_url = base_url
-        self.timeout = timeout
+    def __init__(self, base_url, headers=None, timeout=10):
+        self.base_url = base_url.rstrip("/")
         self.session = requests.Session()
+        self.timeout = timeout
 
-    def get(self, endpoint, params=None, headers=None):
-        response = self.session.get(
-            f"{self.base_url}{endpoint}",
-            params=params,
-            headers=headers,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
+        # Default headers
+        self.session.headers.update({
+            "Content-Type": "application/json"
+        })
+
+        # Override / extend headers if provided
+        if headers:
+            self.session.headers.update(headers)
+
+    def _log_request(self, method, url, **kwargs):
+        logging.info(f"{method} Request → {url}")
+        if "params" in kwargs:
+            logging.info(f"Query Params → {kwargs['params']}")
+        if "json" in kwargs:
+            logging.info(f"Payload → {kwargs['json']}")
+
+    def _log_response(self, response):
+        logging.info(f"Response [{response.status_code}] → {response.url}")
+
+    def get(self, endpoint, params=None):
+        url = f"{self.base_url}{endpoint}"
+        self._log_request("GET", url, params=params)
+
+        response = self.session.get(url, params=params, timeout=self.timeout)
+
+        self._log_response(response)
         return response
 
-    def post(self, endpoint, payload=None, headers=None):
-        response = self.session.post(
-            f"{self.base_url}{endpoint}",
-            json=payload,
-            headers=headers,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
+    def post(self, endpoint, payload=None):
+        url = f"{self.base_url}{endpoint}"
+        self._log_request("POST", url, json=payload)
+
+        response = self.session.post(url, json=payload, timeout=self.timeout)
+
+        self._log_response(response)
         return response
 
-    def put(self, endpoint, payload=None, headers=None):
-        response = self.session.put(
-            f"{self.base_url}{endpoint}",
-            json=payload,
-            headers=headers,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
+    def put(self, endpoint, payload=None):
+        url = f"{self.base_url}{endpoint}"
+        self._log_request("PUT", url, json=payload)
+
+        response = self.session.put(url, json=payload, timeout=self.timeout)
+
+        self._log_response(response)
         return response
 
-    def delete(self, endpoint, headers=None):
-        response = self.session.delete(
-            f"{self.base_url}{endpoint}",
-            headers=headers,
-            timeout=self.timeout
-        )
-        response.raise_for_status()
-        return response
+    def delete(self, endpoint):
+        url = f"{self.base_url}{endpoint}"
+        self._log_request("DELETE", url)
 
-    def get_user(self, user_id):
-        return self.get(f"/users/{user_id}")
+        response = self.session.delete(url, timeout=self.timeout)
+
+        self._log_response(response)
+        return response
     
     
