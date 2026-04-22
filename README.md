@@ -1,10 +1,11 @@
 # QA Automation Framework
 
 Production-grade QA automation framework using:
-- Pytest
-- Playwright
-- API Testing
-- Scalable architecture
+Production-grade QA automation framework built with:
+- Pytest for test orchestration
+- Playwright for reliable UI automation
+- Requests for API validation
+- Layered architecture (tests → flows → pages → services)
 
 ---
 
@@ -17,6 +18,22 @@ Production-grade QA automation framework using:
 - Parallel execution
 - Alure eporting
 - Screenshot capture on failure
+
+
+## 🧪 Data-Driven Testing
+
+Supports:
+- Faker-based dynamic data
+- Deterministic data via seed
+- Override support for edge cases
+
+example:
+checkout.complete_checkout(
+    {
+    "first_name": "Varun",
+    "postal_code": "110001"
+}
+)
 
 ---
 
