@@ -4,13 +4,12 @@ from ai_orchestrator.orchestrator import QAOrchestrator
 
 @click.command()
 @click.option("--story", required=True)
-@click.option("--pr", required=False)
 
-def run(story, pr):
+def run(story):
     orchestrator = QAOrchestrator()
-    result = orchestrator.run_pipeline(story_id=story, pr_id=pr)
+    result = orchestrator.run_pipeline(story_id=story)
 
-    print("\n===== FINAL OUTPUT =====")
+    print("\n===== OUTPUT =====")
     print(result)
 
 
