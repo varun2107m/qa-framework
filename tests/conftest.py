@@ -1,6 +1,8 @@
 import pytest
 from utils.driver_factory import get_browser, teardown_browser
 from utils.config_reader import get_config
+from dotenv import load_dotenv
+load_dotenv()
 
 
 @pytest.fixture
@@ -18,4 +20,4 @@ def driver():
     yield page  # Expose Playwright page as driver
 
     teardown_browser(playwright, browser, context)
-    
+
