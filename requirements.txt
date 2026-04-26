@@ -7,3 +7,6 @@ requests
 faker
 PyYAML
 python-dotenv
+jsonschema
+click
+openai

@@ -4,3 +4,5 @@ __pycache__/
 artifacts/
 *.pyc
 .env
+venv/
+ai_orchestrator/generated/

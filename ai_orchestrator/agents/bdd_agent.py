@@ -1,13 +1,11 @@
+from ai_orchestrator.prompts.bdd_prompt import BDD_PROMPT
+from ai_orchestrator.llm_client import call_llm
+
+
 class BDDAgent:
 
     def generate(self, story):
-
-        return f"""
-Feature: {story['title']}
-
-Scenario: Basic flow
-Given user is on login page
-When user enters valid credentials
-Then user should see dashboard
-"""
+        prompt = BDD_PROMPT.format(story=story)
+        return call_llm(prompt)
+    
     

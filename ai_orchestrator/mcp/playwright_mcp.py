@@ -1,11 +1,19 @@
+import subprocess
+
+
 class PlaywrightMCP:
 
     def run_smoke_flow(self):
-        # THIS CALLS YOUR EXISTING FRAMEWORK
-        # DO NOT CHANGE YOUR FRAMEWORK
+        result = subprocess.run(
+            ["python", "runner.py", "--tags=smoke"],
+            capture_output=True,
+            text=True
+        )
 
         return {
-            "status": "executed",
-            "note": "ran existing pytest/playwright framework"
+            "status": "passed" if result.returncode == 0 else "failed",
+            "returncode": result.returncode,
+            "stdout": result.stdout,
+            "stderr": result.stderr
         }
     
