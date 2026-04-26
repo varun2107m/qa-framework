@@ -1,4 +1,5 @@
 from pages.base_page import BasePage
+from data.data_factory import get_checkout_data
 
 
 class CheckoutPage(BasePage):

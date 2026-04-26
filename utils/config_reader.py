@@ -1,6 +1,6 @@
 import yaml
 import os
-
+CONFIG = None
 
 def load_config():
     config_path = os.path.join(os.path.dirname(__file__), "..", "config", "config.yaml")
@@ -17,5 +17,9 @@ def load_config():
         raise ValueError(f"Environment '{env}' not found in config.yaml")
 
     return config
+
+def get_config(key, default=None):
+    config = load_config()
+    return config.get(key, default)
 
     

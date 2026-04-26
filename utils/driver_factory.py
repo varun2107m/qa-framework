@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 
 def get_browser():
     browser_name = os.getenv("BROWSER", "chromium")
-    headless = os.getenv("HEADLESS", "true").lower() == "true"
+    headless = os.getenv("HEADLESS", "false").lower() == "true"
     slow_mo = int(os.getenv("SLOW_MO", "0"))
 
     supported_browsers = ["chromium", "firefox", "webkit"]
