@@ -1,25 +1,19 @@
 from pytest_bdd import given, when, then, parsers
-from utils.config_reader import load_config
 from pages.login_page import LoginPage
 from test_data.users import get_user
+from utils.config_reader import get_base_url
 import os
 
 
 @given("user opens the application")
 def open_application(page):
-    config = load_config()
-    env = config.get("env", "qa")
-    base_url = config["environments"][env]["base_url"]
-    page.goto(base_url)
+    page.goto(get_base_url())
 
 
 # ✅ Single definition — shared across ALL feature files via load_steps.py
 @given("user is logged into saucedemo")
 def user_logged_in(page):
-    config = load_config()
-    env = config.get("env", "qa")
-    base_url = config["environments"][env]["base_url"]
-    page.goto(base_url)
+    page.goto(get_base_url())
 
     try:
         user = get_user("standard")
@@ -34,10 +28,7 @@ def user_logged_in(page):
 
 @given("user opens saucedemo login page")
 def open_login_page(page):
-    config = load_config()
-    env = config.get("env", "qa")
-    base_url = config["environments"][env]["base_url"]
-    page.goto(base_url)
+    page.goto(get_base_url())
 
 
 @given(parsers.parse('user logs in with "{username}" and "{password}"'))
@@ -54,6 +45,6 @@ def url_should_contain(page, path):
 @then("no error message should be displayed")
 def no_error_message(page):
     assert not page.locator("[data-test='error']").is_visible()
-    
+
     
     

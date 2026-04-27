@@ -1,13 +1,13 @@
+import os
 import pytest
-from pytest_bdd import scenarios, when, then, parsers   # ✅ removed: given
+from pytest_bdd import scenarios, when, then, parsers
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 
 pytestmark = pytest.mark.smoke
 
-scenarios("../features/saucedemo.feature")
-
-# @given steps are inherited from common_steps.py via tests/steps/load_steps.py
+BASE_DIR = os.path.dirname(__file__)
+scenarios(os.path.join(BASE_DIR, "features", "saucedemo.feature"))
 
 
 @when(parsers.parse('user logs in with "{username}" and "{password}"'))
@@ -29,5 +29,7 @@ def verify_inventory(page):
 def verify_item_in_cart(page):
     assert InventoryPage(page).is_item_in_cart()
     
+
+
 
     

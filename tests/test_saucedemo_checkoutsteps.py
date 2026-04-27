@@ -1,14 +1,14 @@
+import os
 import pytest
-from pytest_bdd import scenarios, when, then      # ✅ removed: given (duplicate import too)
+from pytest_bdd import scenarios, when, then
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 
 pytestmark = pytest.mark.regression
 
-scenarios("../features/saucedemocheckout.feature")
-
-# @given("user is logged into saucedemo") is inherited from common_steps.py
+BASE_DIR = os.path.dirname(__file__)
+scenarios(os.path.join(BASE_DIR, "features", "saucedemocheckout.feature"))
 
 
 @when("user adds item to cart")
