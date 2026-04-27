@@ -64,7 +64,8 @@ def page(request):
             attachment_type=allure.attachment_type.ZIP
         )
 
-    # Cleanup
+    # ✅ always close in order: context → browser → playwright
+    context.close()
     browser.close()
     playwright.stop()
 

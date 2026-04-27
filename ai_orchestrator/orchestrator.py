@@ -23,6 +23,10 @@ class QAOrchestrator:
         self.tests_dir = "ai_orchestrator/generated/tests"
         self.reviews_dir = "ai_orchestrator/generated/reviews"
 
+        # ✅ create all output dirs on init — same pattern already used in conftest.py
+        for d in (self.features_dir, self.tests_dir, self.reviews_dir):
+            os.makedirs(d, exist_ok=True)
+
     def run_pipeline(self, story_id):
 
         # 1. Fetch story from Jira
