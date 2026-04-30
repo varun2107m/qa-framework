@@ -62,11 +62,7 @@ def reset_cache():
     """Test helper — lets unit tests swap configs between runs."""
     global _CONFIG_CACHE
     _CONFIG_CACHE = None
-
-def get_base_url():
-    config = load_config()
-    env = config.get("env", "qa")
-    return config["environments"][env]["base_url"]
+    
     
 
 

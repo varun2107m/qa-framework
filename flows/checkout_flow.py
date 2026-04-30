@@ -11,14 +11,12 @@ class CheckoutFlow:
         self.checkout = CheckoutPage(driver)
 
     def complete_checkout(self, data=None):
-     if data is None:
-        data = get_checkout_data()
+        if data is None:
+         data = get_checkout_data()
 
-        self.inventory.add_first_item_to_cart()  # ✅ matches InventoryPage
+        self.inventory.add_first_item_to_cart()
         self.inventory.go_to_cart()
-
-        self.cart.proceed_to_checkout()          # ✅ matches CartPage
-
-        self.checkout.enter_details(data)        # ✅ correct signature — pass the dict
-        self.checkout.finish_order() 
+        self.cart.proceed_to_checkout()
+        self.checkout.enter_details(data)
+        self.checkout.finish_order()
         
